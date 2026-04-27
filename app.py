@@ -41,6 +41,30 @@ def family_of(beat):
 def car_animation():
     st.markdown("""
     <style>
+    .night-dim {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 20, 0.55);
+        z-index: 9997;
+        animation: dimfade 3.2s ease-in-out forwards;
+        pointer-events: none;
+    }
+
+    .star-trail {
+        position: fixed;
+        bottom: 32%;
+        left: -120%;
+        width: 520px;
+        height: 80px;
+        z-index: 9998;
+        animation: drive 3.2s ease-in-out forwards;
+        color: white;
+        font-size: 22px;
+        letter-spacing: 18px;
+        opacity: 0.85;
+        pointer-events: none;
+    }
+
     .car-wrap {
         position: fixed;
         bottom: 15%;
@@ -48,7 +72,8 @@ def car_animation():
         width: 500px;
         height: 160px;
         z-index: 9999;
-        animation: drive 3.5s ease-in-out forwards;
+        animation: drive 3.2s ease-in-out forwards;
+        pointer-events: none;
     }
 
     .car-body {
@@ -58,7 +83,7 @@ def car_animation():
         height: 80px;
         background: navy;
         border-radius: 40px 80px 20px 20px;
-        box-shadow: 0 0 25px rgba(0,0,80,0.8);
+        box-shadow: 0 0 25px rgba(0,0,80,0.9);
     }
 
     .car-top {
@@ -97,14 +122,25 @@ def car_animation():
         height: 12px;
         background: #ffd27a;
         border-radius: 50%;
-        box-shadow: 0 0 20px #fff8c6;
+        box-shadow: 0 0 25px #ffd27a;
     }
 
     @keyframes drive {
-        0% { left: -120%; }
-        100% { left: 120%; }
+        0% { left: -120%; opacity: 1; }
+        85% { opacity: 1; }
+        100% { left: 120%; opacity: 0; }
+    }
+
+    @keyframes dimfade {
+        0% { opacity: 0; }
+        15% { opacity: 1; }
+        80% { opacity: 1; }
+        100% { opacity: 0; }
     }
     </style>
+
+    <div class="night-dim"></div>
+    <div class="star-trail">✦ ✧ ✦ ✧ ✦</div>
 
     <div class="car-wrap">
         <div class="car-body"></div>
