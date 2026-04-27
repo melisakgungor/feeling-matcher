@@ -2,9 +2,12 @@ import streamlit as st
 import pandas as pd
 import random
 
-st.set_page_config(page_title="Feeling Matcher", page_icon="🎧")
+st.set_page_config(page_title="Feeling Matcher", page_icon="🍀")
 
-st.title("Feeling Matcher for You")
+st.markdown("""
+<h1 style='text-align: center; color: white;'>🍀 For You</h1>
+<p style='text-align: center; color: navy;'>songs that feel like you</p>
+""", unsafe_allow_html=True)
 st.write("Choose a song you already like, or manually add a new song feeling.")
 
 liked = pd.read_csv("liked_songs.csv")
@@ -193,8 +196,26 @@ if selected is not None:
         st.subheader("Songs he might discover")
 
         for _, row in results_df.iterrows():
-            st.markdown(f"### {row['Song']} - {row['Artist']}")
-            st.write(f"**Match:** {row['Score']}%")
-            st.write(f"**Why:** {row['Reason']}")
-            st.write(f"**Mood:** {row['Mood']} | **Beat:** {row['Beat']} | **Vibe:** {row['Vibe']}")
-            st.divider()
+    st.markdown(f"""
+    <div style="
+        background-color:#1f1f1f;
+        padding:15px;
+        border-radius:15px;
+        margin-bottom:12px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    ">
+        
+    <h4 style="margin-bottom:5px;">{row['Song']} — {row['Artist']}</h4>
+    
+    <p style="color:#ff4b4b; margin:0;">Match: {row['Score']}%</p>
+    
+    <p style="margin:5px 0;">
+        {row['Mood']} • {row['Beat']} • {row['Vibe']}
+    </p>
+    
+    <p style="color:gray; font-size:12px;">
+        {row['Reason']}
+    </p>
+
+    </div>
+    """, unsafe_allow_html=True))
