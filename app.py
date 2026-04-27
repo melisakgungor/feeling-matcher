@@ -40,17 +40,17 @@ def family_of(beat):
 
 def car_animation():
     st.markdown("""
-    <style>
-    .night-dim {
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 20, 0.55);
-        z-index: 9997;
-        animation: dimfade 3.2s ease-in-out forwards;
-        pointer-events: none;
-    }
+<style>
+.night-dim {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 20, 0.55);
+    z-index: 9997;
+    animation: dimfade 3.2s ease-in-out forwards;
+    pointer-events: none;
+}
 
-    .star-trail {
+.star-trail {
     position: fixed;
     inset: 0;
     z-index: 9998;
@@ -62,107 +62,98 @@ def car_animation():
     background-position: 0 0, 40px 60px;
     opacity: 0.8;
     animation: starsMove 3.2s linear forwards;
-    }
-
-    .car-wrap {
-        position: fixed;
-        bottom: 15%;
-        left: -120%;
-        width: 500px;
-        height: 160px;
-        z-index: 9999;
-        animation: drive 3.2s ease-in-out forwards;
-        pointer-events: none;
-    }
-
-    .car-body {
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-        height: 80px;
-        background: navy;
-        border-radius: 40px 80px 20px 20px;
-        box-shadow: 0 0 25px rgba(0,0,80,0.9);
-    }
-
-    .car-top {
-        position: absolute;
-        bottom: 60px;
-        left: 80px;
-        width: 260px;
-        height: 70px;
-        background: navy;
-        border-radius: 80px 80px 0 0;
-    }
-
-    .wheel {
-        position: absolute;
-        bottom: -25px;
-        width: 70px;
-        height: 70px;
-        background: black;
-        border-radius: 50%;
-        box-shadow: inset 0 0 8px #222;
-    }
-
-    .wheel.left {
-        left: 70px;
-    }
-
-    .wheel.right {
-        right: 70px;
-    }
-
-    .light {
-        position: absolute;
-        right: -15px;
-        bottom: 25px;
-        width: 25px;
-        height: 12px;
-        background: #ffd27a;
-        border-radius: 50%;
-        box-shadow: 0 0 25px #ffd27a;
-    }
-
-    @keyframes drive {
-        0% { left: -120%; opacity: 1; }
-        85% { opacity: 1; }
-        100% { left: 120%; opacity: 0; }
-    }
-
-    @keyframes dimfade {
-        0% { opacity: 0; }
-        15% { opacity: 1; }
-        80% { opacity: 1; }
-        100% { opacity: 0; }
-    }
-
-    @keyframes starsMove {
-    0% {
-        background-position: 0 0, 40px 60px;
-        opacity: 0;
-    }
-    15% {
-        opacity: 0.8;
-    }
-    100% {
-        background-position: 300px 0, 500px 60px;
-        opacity: 0;
-    }
 }
-    </style>
 
-    <div class="night-dim"></div>
-    <div class="star-trail"></div>
+.car-wrap {
+    position: fixed;
+    bottom: 15%;
+    left: -120%;
+    width: 500px;
+    height: 160px;
+    z-index: 9999;
+    animation: drive 3.2s ease-in-out forwards;
+    pointer-events: none;
+}
 
-    <div class="car-wrap">
-        <div class="car-body"></div>
-        <div class="car-top"></div>
-        <div class="wheel left"></div>
-        <div class="wheel right"></div>
-        <div class="light"></div>
-    </div>
-    """, unsafe_allow_html=True)
+.car-body {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 80px;
+    background: navy;
+    border-radius: 40px 80px 20px 20px;
+    box-shadow: 0 0 25px rgba(0,0,80,0.9);
+}
+
+.car-top {
+    position: absolute;
+    bottom: 60px;
+    left: 80px;
+    width: 260px;
+    height: 70px;
+    background: navy;
+    border-radius: 80px 80px 0 0;
+}
+
+.wheel {
+    position: absolute;
+    bottom: -25px;
+    width: 70px;
+    height: 70px;
+    background: black;
+    border-radius: 50%;
+}
+
+.wheel.left {
+    left: 70px;
+}
+
+.wheel.right {
+    right: 70px;
+}
+
+.light {
+    position: absolute;
+    right: -15px;
+    bottom: 25px;
+    width: 25px;
+    height: 12px;
+    background: #ffd27a;
+    border-radius: 50%;
+    box-shadow: 0 0 25px #ffd27a;
+}
+
+@keyframes drive {
+    0% { left: -120%; opacity: 1; }
+    85% { opacity: 1; }
+    100% { left: 120%; opacity: 0; }
+}
+
+@keyframes dimfade {
+    0% { opacity: 0; }
+    15% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+@keyframes starsMove {
+    0% { background-position: 0 0, 40px 60px; opacity: 0; }
+    15% { opacity: 0.8; }
+    100% { background-position: 300px 0, 500px 60px; opacity: 0; }
+}
+</style>
+
+<div class="night-dim"></div>
+<div class="star-trail"></div>
+
+<div class="car-wrap">
+    <div class="car-body"></div>
+    <div class="car-top"></div>
+    <div class="wheel left"></div>
+    <div class="wheel right"></div>
+    <div class="light"></div>
+</div>
+""", unsafe_allow_html=True)
 
 def calculate_match(candidate, selected):
     score = 0
