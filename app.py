@@ -37,54 +37,83 @@ def family_of(beat):
             return family
     return beat
 
+
 def car_animation():
     st.markdown("""
     <style>
-    .night-car {
+    .car-wrap {
         position: fixed;
-        bottom: 18%;
+        bottom: 15%;
         left: -120%;
-        width: 90vw;
-        height: 220px;
-        background: navy;
-        border-radius: 90px 130px 40px 40px;
-        animation: driveby 2.4s ease-in-out forwards;
+        width: 500px;
+        height: 160px;
         z-index: 9999;
-        box-shadow: 0 0 35px rgba(0,0,80,0.9);
+        animation: drive 3.5s ease-in-out forwards;
     }
 
-    .night-car::before {
-        content: "";
+    .car-body {
         position: absolute;
-        top: -75px;
-        left: 22%;
-        width: 38%;
-        height: 95px;
+        bottom: 0;
+        width: 100%;
+        height: 80px;
         background: navy;
-        border-radius: 100px 100px 0 0;
+        border-radius: 40px 80px 20px 20px;
+        box-shadow: 0 0 25px rgba(0,0,80,0.8);
     }
 
-    .night-car::after {
-        content: "";
+    .car-top {
         position: absolute;
-        bottom: -35px;
-        left: 18%;
+        bottom: 60px;
+        left: 80px;
+        width: 260px;
+        height: 70px;
+        background: navy;
+        border-radius: 80px 80px 0 0;
+    }
+
+    .wheel {
+        position: absolute;
+        bottom: -25px;
         width: 70px;
         height: 70px;
-        background: #050505;
+        background: black;
         border-radius: 50%;
-        box-shadow: 52vw 0 0 #050505;
+        box-shadow: inset 0 0 8px #222;
     }
 
-    @keyframes driveby {
+    .wheel.left {
+        left: 70px;
+    }
+
+    .wheel.right {
+        right: 70px;
+    }
+
+    .light {
+        position: absolute;
+        right: -15px;
+        bottom: 25px;
+        width: 25px;
+        height: 12px;
+        background: #ffd27a;
+        border-radius: 50%;
+        box-shadow: 0 0 20px #fff8c6;
+    }
+
+    @keyframes drive {
         0% { left: -120%; }
         100% { left: 120%; }
     }
     </style>
 
-    <div class="night-car"></div>
+    <div class="car-wrap">
+        <div class="car-body"></div>
+        <div class="car-top"></div>
+        <div class="wheel left"></div>
+        <div class="wheel right"></div>
+        <div class="light"></div>
+    </div>
     """, unsafe_allow_html=True)
-
 
 def calculate_match(candidate, selected):
     score = 0
