@@ -4,8 +4,8 @@ from openai import OpenAI
 
 st.set_page_config(page_title="Feeling Matcher", page_icon="🍀")
 
-st.title("🎧 Feeling Matcher")
-st.write("Type a song he likes. The app finds new songs with the same feeling.")
+st.title("Feeling Matcher")
+st.write("Type a song you like. The app finds new songs with the same feeling;)")
 
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
@@ -22,6 +22,7 @@ weights = {
 song_name = st.text_input("Song name")
 artist_name = st.text_input("Artist")
 
+@st.cache_data
 def analyze_song(song, artist):
     prompt = f"""
 Analyze this song for a music discovery app.
@@ -29,32 +30,48 @@ Analyze this song for a music discovery app.
 Song: {song}
 Artist: {artist}
 
-Return ONLY a CSV row with these columns:
+Return ONLY a CSV row with:
 Song,Artist,Mood,Energy,Vocals,Beat,Lyrics,Vibe
 
-Use short lowercase labels.
 Example:
 Selfless,The Strokes,melancholic,medium,distant,indie rock,emotional distance,late night city
 """
 
-    response = client.responses.create(
-        model="gpt-4.1-mini",
-        input=prompt
-    )
+    try:
+        response = client.responses.create(
+            model="gpt-4.1-nano",
+            input=prompt
+        )
 
-    text = response.output_text.strip()
-    values = [v.strip() for v in text.split(",")]
+        text = response.output_text.strip()
+        values = [v.strip() for v in text.split(",")]
 
-    return {
-        "Song": values[0],
-        "Artist": values[1],
-        "Mood": values[2],
-        "Energy": values[3],
-        "Vocals": values[4],
-        "Beat": values[5],
-        "Lyrics": values[6],
-        "Vibe": values[7]
-    }
+        if len(values) != 8:
+            raise ValueError("Bad format")
+
+        return {
+            "Song": values[0],
+            "Artist": values[1],
+            "Mood": values[2],
+            "Energy": values[3],
+            "Vocals": values[4],
+            "Beat": values[5],
+            "Lyrics": values[6],
+            "Vibe": values[7]
+        }
+
+    except Exception:
+        return {
+            "Song": song,
+            "Artist": artist,
+            "Mood": "melancholic",
+            "Energy": "medium",
+            "Vocals": "soft",
+            "Beat": "indie rock",
+            "Lyrics": "unknown",
+            "Vibe": "late night"
+        }
+     
 
 def calculate_match(candidate, selected):
     score = 0
