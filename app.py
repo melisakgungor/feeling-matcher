@@ -330,15 +330,16 @@ if selected is not None:
     car_songs = [
         "time is running out",
         "welcome to japan",
-        "Wonderwall",
-        "Bir Ömür Yetmez",
-        "Haydi Söyle"
+        "wonderwall",
+        "bir ömür yetmez",
+        "haydi söyle",
         "505",
-        "do i wanna know",
+        "do i wanna know"
     ]
 
     if selected_song_name in car_songs:
         car_animation()
+        time.sleep(3.3)
 
     results = []
     
