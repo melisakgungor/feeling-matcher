@@ -1,7 +1,10 @@
 import streamlit as st
 import pandas as pd
+from openai import OpenAI
 
-st.title("🎧 Feeling Matcher")
+st.title("Feeling Matcher")
+
+client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 df = pd.read_csv("songs.csv")
 
@@ -13,43 +16,36 @@ weights = {
     "Energy": 5
 }
 
-song_list = df["Song"] + " - " + df["Artist"]
+song_name = st.text_input("Write a song you like:")
+artist_name = st.text_input("Artist:")
 
-selected_song = st.selectbox("Pick a song:", song_list)
+def ai_categorize(song, artist):
+    prompt = f"""
+Categorize this song for a music recommendation app.
 
-selected_row = df[song_list == selected_song].iloc[0]
+Song: {song}
+Artist: {artist}
 
-def calculate_score(row):
-    score = 0
-    reasons = []
+Return ONLY this format:
+Mood:
+Energy:
+Vocals:
+Beat:
+Lyrics:
+Vibe:
+"""
 
-    for key in weights:
-        if row[key] == selected_row[key]:
-            score += weights[key]
-            reasons.append(key)
+    response = client.responses.create(
+        model="gpt-5.1-mini",
+        input=prompt
+    )
 
-    return score, reasons
+    return response.output_text
 
-results = []
-
-for i, row in df.iterrows():
-    if row["Song"] == selected_row["Song"]:
-        continue
-
-    score, reasons = calculate_score(row)
-
-    results.append({
-        "Song": row["Song"],
-        "Artist": row["Artist"],
-        "Score": score,
-        "Reason": ", ".join(reasons)
-    })
-
-results = sorted(results, key=lambda x: x["Score"], reverse=True)
-
-st.subheader("Recommendations")
-
-for r in results[:5]:
-    st.write(f"**{r['Song']} - {r['Artist']}**")
-    st.write(f"Match: {r['Score']}%")
-    st.write(f"Reason: {r['Reason']}")
+if st.button("Analyze song"):
+    if song_name and artist_name:
+        analysis = ai_categorize(song_name, artist_name)
+        st.subheader("AI Song DNA")
+        st.text(analysis)
+    else:
+        st.warning("Write both song and artist.")
