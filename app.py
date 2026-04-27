@@ -62,7 +62,7 @@ def calculate_match(candidate, selected):
         score += 22
         reasons.append("same genre family")
     else:
-        score -= 20
+        score -= 10
 
     if c_mood == s_mood:
         score += 25
