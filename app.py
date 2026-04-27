@@ -150,15 +150,15 @@ if selected is not None:
     selected_song_name = str(selected["Song"]).lower().strip()
     selected_artist_name = str(selected["Artist"]).lower().strip()
 
-if selected_song_name == "welcome to japan" and "the strokes" in selected_artist_name:
-    st.balloons()
-    st.success("you unlocked: Welcome to Japan mode")
-    st.markdown("""
-    ### Welcome to Japan
-    You found the song I secretly built this around :P
+    if selected_song_name == "welcome to japan" and "the strokes" in selected_artist_name:
+        st.balloons()
+        st.success("you unlocked: Welcome to Japan mode")
+        st.markdown("""
+        ### Welcome to Japan
+        You found the song I secretly built this around :P
     
-    *You found the hidden track!*
-    """)
+        *You found the hidden track!*
+        """)
 
     results = []
 
