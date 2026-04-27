@@ -195,7 +195,7 @@ if selected is not None:
 
         st.subheader("Songs he might discover")
 
-        for _, row in results_df.iterrows():
+    for _, row in results_df.iterrows():
         st.markdown(f"""
         <div style="
         background-color:#1f1f1f;
