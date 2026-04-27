@@ -150,6 +150,21 @@ if selected is not None:
     st.subheader("Song DNA")
     st.write(selected)
 
+    # rare long-distance message
+    if random.random() < 0.08:
+        st.caption("bazı şarkılar, mesafenin izin verdiğinden daha yakın hissettirir")
+
+    # long-distance us mode
+    couple_mode = st.toggle("✦ us mode")
+
+    if couple_mode:
+        st.markdown("""
+        <div style="text-align:center; padding:18px; border-radius:15px; background-color:#1f1f1f; margin-bottom:15px;">
+        ✦ <b>long distance frequency detected</b> ✦<br>
+        <span style="color:gray;">different cities, same song <3</span>
+        </div>
+        """, unsafe_allow_html=True)
+
     selected_song_name = str(selected["Song"]).lower().strip()
     selected_artist_name = str(selected["Artist"]).lower().strip()
 
