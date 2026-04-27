@@ -55,7 +55,7 @@ def calculate_match(candidate, selected):
     c_energy = str(candidate["Energy"]).lower()
     s_energy = str(selected["Energy"]).lower()
 
-    if c_beat == s_beat:
+    if c_beat == s_beat or "new wave" in c_beat or "indie" in c_beat:
         score += 35
         reasons.append("same beat style")
     elif family_of(c_beat) == family_of(s_beat):
