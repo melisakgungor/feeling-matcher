@@ -40,24 +40,49 @@ def family_of(beat):
 def car_animation():
     st.markdown("""
     <style>
-    .car-container {
+    .night-car {
         position: fixed;
-        bottom: 0;
-        left: -100%;
-        width: 100%;
-        height: 100px;
+        bottom: 18%;
+        left: -120%;
+        width: 90vw;
+        height: 220px;
         background: navy;
-        animation: drive 2.5s ease-out forwards;
+        border-radius: 90px 130px 40px 40px;
+        animation: driveby 2.4s ease-in-out forwards;
         z-index: 9999;
+        box-shadow: 0 0 35px rgba(0,0,80,0.9);
     }
 
-    @keyframes drive {
-        0% { left: -100%; }
-        100% { left: 100%; }
+    .night-car::before {
+        content: "";
+        position: absolute;
+        top: -75px;
+        left: 22%;
+        width: 38%;
+        height: 95px;
+        background: navy;
+        border-radius: 100px 100px 0 0;
+    }
+
+    .night-car::after {
+        content: "";
+        position: absolute;
+        bottom: -35px;
+        left: 18%;
+        width: 70px;
+        height: 70px;
+        background: #050505;
+        border-radius: 50%;
+        box-shadow: 52vw 0 0 #050505;
+    }
+
+    @keyframes driveby {
+        0% { left: -120%; }
+        100% { left: 120%; }
     }
     </style>
 
-    <div class="car-container"></div>
+    <div class="night-car"></div>
     """, unsafe_allow_html=True)
 
 
