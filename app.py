@@ -51,18 +51,17 @@ def car_animation():
     }
 
     .star-trail {
-        position: fixed;
-        bottom: 32%;
-        left: -120%;
-        width: 520px;
-        height: 80px;
-        z-index: 9998;
-        animation: drive 3.2s ease-in-out forwards;
-        color: white;
-        font-size: 22px;
-        letter-spacing: 18px;
-        opacity: 0.85;
-        pointer-events: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+    pointer-events: none;
+    background-image:
+        radial-gradient(white 1px, transparent 1px),
+        radial-gradient(white 1.5px, transparent 1.5px);
+    background-size: 80px 80px, 130px 130px;
+    background-position: 0 0, 40px 60px;
+    opacity: 0.8;
+    animation: starsMove 3.2s linear forwards;
     }
 
     .car-wrap {
@@ -137,10 +136,24 @@ def car_animation():
         80% { opacity: 1; }
         100% { opacity: 0; }
     }
+
+    @keyframes starsMove {
+    0% {
+        background-position: 0 0, 40px 60px;
+        opacity: 0;
+    }
+    15% {
+        opacity: 0.8;
+    }
+    100% {
+        background-position: 300px 0, 500px 60px;
+        opacity: 0;
+    }
+}
     </style>
 
     <div class="night-dim"></div>
-    <div class="star-trail">✦ ✧ ✦ ✧ ✦</div>
+    <div class="star-trail"></div>
 
     <div class="car-wrap">
         <div class="car-body"></div>
@@ -316,8 +329,10 @@ if selected is not None:
 
         car_songs = [
         "time is running out",
-        "selfless",
         "welcome to japan",
+        "Wonderwall",
+        "Bir Ömür Yetmez",
+        "Haydi Söyle"
         "505",
         "do i wanna know",
     ]
