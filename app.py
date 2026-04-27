@@ -196,26 +196,26 @@ if selected is not None:
         st.subheader("Songs he might discover")
 
         for _, row in results_df.iterrows():
-    st.markdown(f"""
-    <div style="
+        st.markdown(f"""
+        <div style="
         background-color:#1f1f1f;
         padding:15px;
         border-radius:15px;
         margin-bottom:12px;
         box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-    ">
+        ">
         
-    <h4 style="margin-bottom:5px;">{row['Song']} — {row['Artist']}</h4>
+        <h4 style="margin-bottom:5px;">{row['Song']} — {row['Artist']}</h4>
     
-    <p style="color:#ff4b4b; margin:0;">Match: {row['Score']}%</p>
-    
-    <p style="margin:5px 0;">
+        <p style="color:#ff4b4b; margin:0;">Match: {row['Score']}%</p>
+        
+        <p style="margin:5px 0;">
         {row['Mood']} • {row['Beat']} • {row['Vibe']}
-    </p>
+        </p>
     
-    <p style="color:gray; font-size:12px;">
+        <p style="color:gray; font-size:12px;">
         {row['Reason']}
-    </p>
+        </p>
 
-    </div>
-    """, unsafe_allow_html=True)
+        </div>
+        """, unsafe_allow_html=True)
