@@ -37,6 +37,30 @@ def family_of(beat):
             return family
     return beat
 
+def car_animation():
+    st.markdown("""
+    <style>
+    .car-container {
+        position: fixed;
+        bottom: 0;
+        left: -100%;
+        width: 100%;
+        height: 100px;
+        background: navy;
+        animation: drive 2.5s ease-out forwards;
+        z-index: 9999;
+    }
+
+    @keyframes drive {
+        0% { left: -100%; }
+        100% { left: 100%; }
+    }
+    </style>
+
+    <div class="car-container"></div>
+    """, unsafe_allow_html=True)
+
+
 def calculate_match(candidate, selected):
     score = 0
     reasons = []
@@ -200,7 +224,19 @@ if selected is not None:
         *You found the hidden track!*
         """)
 
+        car_songs = [
+        "time is running out",
+        "selfless",
+        "welcome to japan",
+        "505",
+        "do i wanna know",
+    ]
+
+    if selected_song_name in car_songs:
+        car_animation()
+
     results = []
+    
 
     for _, row in candidates.iterrows():
         score, reasons = calculate_match(row, selected)
