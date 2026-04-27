@@ -170,7 +170,7 @@ if selected is not None:
             z-index:9999;
             color:white;
         ">
-        some songs feel closer than distance allows
+        şarkı lazımdır ağabey?
         </div>
         """, unsafe_allow_html=True)
     
