@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import random
+import time
 
 st.set_page_config(page_title="Feeling Matcher", page_icon="🍀")
 
@@ -150,9 +151,31 @@ if selected is not None:
     st.subheader("Song DNA")
     st.write(selected)
 
-    # rare long-distance message
+    import time
+
     if random.random() < 0.08:
-        st.caption("bazı şarkılar, mesafenin izin verdiğinden daha yakın hissettirir")
+        popup = st.empty()
+
+        popup.markdown("""
+        <div style="
+            position:fixed;
+            top:20%;
+            left:50%;
+            transform:translate(-50%, -50%);
+            background-color:#1f1f1f;
+            padding:20px 30px;
+            border-radius:15px;
+            text-align:center;
+            box-shadow:0 8px 20px rgba(0,0,0,0.5);
+            z-index:9999;
+            color:white;
+        ">
+        some songs feel closer than distance allows
+        </div>
+        """, unsafe_allow_html=True)
+    
+        time.sleep(2)
+        popup.empty()
 
     # long-distance us mode
     couple_mode = st.toggle("✦ us mode")
@@ -160,8 +183,7 @@ if selected is not None:
     if couple_mode:
         st.markdown("""
         <div style="text-align:center; padding:18px; border-radius:15px; background-color:#1f1f1f; margin-bottom:15px;">
-        ✦ <b>long distance frequency detected</b> ✦<br>
-        <span style="color:gray;">different cities, same song <3</span>
+        <span style="color:gray;">farklı şehirler, aynı şarkı</span>
         </div>
         """, unsafe_allow_html=True)
 
