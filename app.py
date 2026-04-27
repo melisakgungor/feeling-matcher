@@ -1,51 +1,68 @@
 import streamlit as st
 import pandas as pd
-from openai import OpenAI
 
-st.title("Feeling Matcher")
+st.set_page_config(page_title="Feeling Matcher", page_icon="🍀")
 
-client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+st.title("🎧 Feeling Matcher")
+st.write("Pick a song he already likes. Discover songs he may not know.")
 
-df = pd.read_csv("songs.csv")
+liked = pd.read_csv("liked_songs.csv")
+candidates = pd.read_csv("candidate_songs.csv")
 
 weights = {
-    "Mood": 40,
+    "Mood": 35,
     "Vibe": 25,
     "Vocals": 15,
     "Beat": 15,
-    "Energy": 5
+    "Energy": 10
 }
 
-song_name = st.text_input("Write a song you like:")
-artist_name = st.text_input("Artist:")
+song_options = liked["Song"] + " - " + liked["Artist"]
 
-def ai_categorize(song, artist):
-    prompt = f"""
-Categorize this song for a music recommendation app.
+selected_song = st.selectbox("Choose a song he likes:", song_options)
 
-Song: {song}
-Artist: {artist}
+selected_row = liked[song_options == selected_song].iloc[0]
 
-Return ONLY this format:
-Mood:
-Energy:
-Vocals:
-Beat:
-Lyrics:
-Vibe:
-"""
+st.subheader("Selected Song DNA")
+st.write(f"**Mood:** {selected_row['Mood']}")
+st.write(f"**Energy:** {selected_row['Energy']}")
+st.write(f"**Vocals:** {selected_row['Vocals']}")
+st.write(f"**Beat:** {selected_row['Beat']}")
+st.write(f"**Vibe:** {selected_row['Vibe']}")
 
-    response = client.responses.create(
-        model="gpt-5.1-mini",
-        input=prompt
-    )
+def calculate_match(candidate, selected):
+    score = 0
+    reasons = []
 
-    return response.output_text
+    for category, weight in weights.items():
+        if str(candidate[category]).lower() == str(selected[category]).lower():
+            score += weight
+            reasons.append(category)
 
-if st.button("Analyze song"):
-    if song_name and artist_name:
-        analysis = ai_categorize(song_name, artist_name)
-        st.subheader("AI Song DNA")
-        st.text(analysis)
-    else:
-        st.warning("Write both song and artist.")
+    return score, reasons
+
+results = []
+
+for _, row in candidates.iterrows():
+    score, reasons = calculate_match(row, selected_row)
+
+    results.append({
+        "Song": row["Song"],
+        "Artist": row["Artist"],
+        "Score": score,
+        "Reason": ", ".join(reasons) if reasons else "different texture, but still near his world",
+        "Mood": row["Mood"],
+        "Vibe": row["Vibe"]
+    })
+
+results_df = pd.DataFrame(results)
+results_df = results_df.sort_values(by="Score", ascending=False)
+
+st.subheader("Songs he might discover")
+
+for _, row in results_df.head(10).iterrows():
+    st.markdown(f"### {row['Song']} - {row['Artist']}")
+    st.write(f"**Match:** {row['Score']}%")
+    st.write(f"**Why:** same {row['Reason']}")
+    st.write(f"**Mood:** {row['Mood']} | **Vibe:** {row['Vibe']}")
+    st.divider()
