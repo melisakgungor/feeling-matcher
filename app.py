@@ -295,13 +295,42 @@ if selected is not None:
         time.sleep(2)
         popup.empty()
 
-    # long-distance us mode
-    couple_mode = st.toggle("✦ us mode")
+    couple_mode = st.toggle("us mode")
+
 
     if couple_mode:
         st.markdown("""
-        <div style="text-align:center; padding:18px; border-radius:15px; background-color:#1f1f1f; margin-bottom:15px;">
-        <span style="color:gray;">farklı şehirler, aynı şarkı</span>
+        <style>
+        .stApp {
+            background-image: url("https://images.unsplash.com/photo-1617567939774-ff1e47f733f8?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8aXN0YW5idWwlMjBuaWdodHxlbnwwfHwwfHx8MA%3D%3D");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+    
+        .stApp::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.65);
+            z-index: 0;
+        }
+    
+        .stApp > * {
+            position: relative;
+            z-index: 1;
+        }
+        </style>
+    
+        <div style="
+            text-align:center;
+            padding:18px;
+            border-radius:15px;
+            background: rgba(20,20,40,0.6);
+            backdrop-filter: blur(10px);
+            margin-bottom:15px;
+        ">
+        <span style="color:#e0e0ff;">farklı şehirler, aynı şarkı</span>
         </div>
         """, unsafe_allow_html=True)
 
