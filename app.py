@@ -351,8 +351,8 @@ if selected is not None:
         "time is running out",
         "welcome to japan",
         "wonderwall",
-        "bir ömür yetmez",
-        "haydi söyle",
+        "taşmam ellerinde",
+        "selfless",
         "505",
         "do i wanna know"
     ]
