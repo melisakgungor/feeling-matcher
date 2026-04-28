@@ -363,7 +363,7 @@ if selected is not None:
             random_state=random.randint(1, 999999)
         ).sort_values(by="Score", ascending=False)
 
-        st.subheader("Songs he might discover")
+        st.subheader("Songs you might discover")
 
     for _, row in results_df.iterrows():
         st.markdown(f"""
